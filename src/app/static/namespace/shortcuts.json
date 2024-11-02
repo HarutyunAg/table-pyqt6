@@ -1,0 +1,15 @@
+{
+    "bar": {
+        "file_menu": {
+            "upload": "Ctrl+O",
+            "save": "Ctrl+S"
+        }
+    },
+    "table" : {
+        "add_row_above" : "Ctrl+Up",
+        "add_row_below": "Ctrl+Down",
+        "remove_row": "Ctrl+Delete",
+        "replace": "Ctrl+R",
+        "find": "Ctrl+F"
+    }
+}

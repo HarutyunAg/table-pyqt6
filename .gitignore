@@ -1,0 +1,8 @@
+.venv
+poetry.lock
+__pycache__
+src\app\__pycache__
+src\app\bar\__pycache__
+src\app\static\__pycache__
+src\app\table\__pycache__
+src\app\table\dialogs\__pycache__

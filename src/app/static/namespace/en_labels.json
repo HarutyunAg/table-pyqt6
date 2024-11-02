@@ -1,0 +1,40 @@
+{
+    "main_window": {
+        "title": "OpenEditor"
+    },
+
+    "table_loader": {
+        "button": "Load File",
+        "dialog": "Select File"
+    },
+
+    "bar": {
+        "file_menu": {
+            "menu_name": "&🗏 File",
+            "upload": "Upload",
+            "save": "Save"
+        }
+    },
+    "table_context_menu": {
+        "add_above": "Add 🡱",
+        "add_below": "Add 🡳",
+        "remove": "Delete 🗑"
+    },
+    "replace_dialog": {
+        "title": "Text Replacement",
+        "old": "Current Value",
+        "new": "New Value",
+        "change": "Replace",
+        "change_all": "Replace All",
+        "arrow_down": "🡳",
+        "arrow_up": "🡱",
+        "find": "Find"
+    },
+    "finder_dialog": {
+        "title" : "Search text",
+        "value": "¯\\_(ツ)_/¯",
+        "arrow_down": "🡳",
+        "arrow_up": "🡱",
+        "find": "Find"
+    }
+}
