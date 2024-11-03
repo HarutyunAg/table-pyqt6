@@ -1,8 +1,8 @@
 import pandas as pd
 from loguru import logger
 
-from src.app.static import shortcut, label
-from src.app.table.dialogs import ReplaceDialogLogic, ReplaceDialogBase, FindDialogLogic, FinderDialogBase
+from blackbox.app.static import shortcut, label
+from blackbox.app.table.dialogs import ReplaceDialogLogic, ReplaceDialogBase, FindDialogLogic, FinderDialogBase
 
 from PyQt6.QtCore import Qt, QPoint
 from PyQt6.QtGui import QAction, QShortcut, QKeySequence

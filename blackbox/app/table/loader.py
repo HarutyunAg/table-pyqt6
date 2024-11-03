@@ -1,4 +1,4 @@
-from src.app.static import label
+from blackbox.app.static import label
 
 import os
 import pandas as pd

@@ -1,5 +1,5 @@
 import pandas as pd
-from src.app.static import label, shortcut
+from blackbox.app.static import label, shortcut
 from PyQt6.QtGui import QAction, QKeySequence
 from PyQt6.QtWidgets import QMenuBar, QFileDialog
 

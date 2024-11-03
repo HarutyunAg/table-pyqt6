@@ -10,7 +10,7 @@ This is a PyQt6 App featuring a fully editable table widget with essential funct
 ## project tree
 
 ```bash
-src/                     # Main source directory
+blackbox/                # Main source directory
 │
 ├── run.py               # Entrypoint for booting the application  
 │
@@ -27,4 +27,19 @@ src/                     # Main source directory
     └── table/           # Module for table-related features and views  
         │
         └── dialogs/     # Dialog components for user interactions and prompts  
+```
+
+
+### setup
+
+```bash
+git clone https://github.com/HarutyunAg/blackbox-pyqt6-table.git
+
+cd blackbox-pyqt6-table
+
+poetry install
+
+poetry shell
+
+python .\blackbox\run.py
 ```

@@ -1,8 +1,8 @@
 from PyQt6.QtGui import QIcon
-from src.app.bar import FileMenuBar
-from src.app.static import LOGO, label
+from blackbox.app.bar import FileMenuBar
+from blackbox.app.static import LOGO, label
 from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QWidget
-from src.app.table import TableWidget, LoaderMenuWidget
+from blackbox.app.table import TableWidget, LoaderMenuWidget
 
 
 class MainWindow(QMainWindow):
