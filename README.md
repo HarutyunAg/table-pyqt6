@@ -12,7 +12,7 @@ This is a PyQt6 App featuring a fully editable table widget with essential funct
 ```bash
 blackbox/                # Main source directory
 │
-├── run.py               # Entrypoint for booting the application  
+├── example.py           # File for representing example of usage  
 │
 ├── app/                 # Core application logic and components  
     │
@@ -41,5 +41,7 @@ poetry install
 
 poetry shell
 
-python .\blackbox\run.py
+python .\blackbox\example.py
 ```
+
+You can see example of usage this table widget in your *QMainWindow* in \blackbox\example.py

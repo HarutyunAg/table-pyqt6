@@ -58,7 +58,7 @@ class LoaderWidgetBase(QWidget):
         return pd.DataFrame()
 
 
-class LoaderMenuWidget(LoaderWidgetBase):
+class LoaderFromMenuWidget(LoaderWidgetBase):
 
     def __init__(self, parent=None):
         super().__init__(parent)

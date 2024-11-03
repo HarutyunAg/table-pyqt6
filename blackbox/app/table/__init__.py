@@ -1,4 +1,4 @@
-from blackbox.app.table.loader import LoaderMenuWidget
+from blackbox.app.table.loader import LoaderFromMenuWidget
 from blackbox.app.table.table import TableWidget
 
-__all__ = ['TableWidget', 'LoaderMenuWidget']
+__all__ = ['TableWidget', 'LoaderFromMenuWidget']
