@@ -1,11 +1,11 @@
 # blackbox-pyqt6-table
 
-Are you building a PyQT6 App and looking for an editable blackbox-ready2use editable table?  
+Are you building a PyQT6 App and looking for a blackbox-ready2use editable table?  
 
 *(づ◡﹏◡)づ Congrats!*  
 You have found this repo.
 
-This is a PyQt6 App featuring a fully editable table widget with essential functionalities right out of the box.
+This is a PyQt6 fully editable table widget with essential functionalities right out of the box.
 
 ## project tree
 
