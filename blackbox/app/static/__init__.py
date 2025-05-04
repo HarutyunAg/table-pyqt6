@@ -27,13 +27,13 @@ def _get_key(key_: str, data: dict) -> str:
 
 
 def shortcut(key_: str) -> str:
-    SHORTCUTS: dict =  __load('namespace\shortcuts.json')
+    SHORTCUTS: dict =  __load('./namespace/shortcuts.json')
     return _get_key(key_, SHORTCUTS)
 
 
 def label(key_: str) -> str:
-    LABELS: dict = __load('namespace\\ru_labels.json')
+    LABELS: dict = __load('./namespace/ru_labels.json')
     return _get_key(key_, LABELS)
 
 
-LOGO: str = __get_path('imgs\logo.png')
+LOGO: str = __get_path('imgs/logo.png')
