@@ -37,11 +37,26 @@ git clone https://github.com/HarutyunAg/blackbox-pyqt6-table.git
 
 cd blackbox-pyqt6-table
 
-poetry install
+uv sync
 
-poetry shell
-
-python .\blackbox\example.py
+uv run main.py
 ```
 
 You can see example of usage this table widget in your *QMainWindow* in \blackbox\example.py
+
+-----
+
+When running a PyQt6/PySide2 application on Linux, you may encounter:
+```
+    Failed to create wl_display (No such file or directory)  
+    qt.qpa.plugin: Could not load the Qt platform plugin "xcb" or "wayland"  
+```
+Solution:  
+    Install the missing Qt Wayland package:  
+
+```bash
+sudo apt install qtwayland5
+```
+
+#TODO
+- add gif to readme  
