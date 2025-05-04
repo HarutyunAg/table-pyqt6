@@ -1,24 +1,14 @@
-[tool.poetry]
-name = "blackbox"
-version = "0.2.2"
-readme = "README.md"
+[project]
+name = "blackbox-pyqt6-table"
+version = "0.2.3"
 description = "Ready2Use editable table for PyQt6 apps"
-repository = "https://github.com/HarutyunAg/blackbox-pyqt6-table"
-authors = ["Harutyun <106912298+HarutyunAg@users.noreply.github.com>"]
-
-
-[tool.poetry.dependencies]
-pyqt6 = "^6.7.0"
-numpy = "1.26.4"
-pandas = "^2.2.2"
-python = "3.10.0"
-loguru = "^0.7.2"
-flake8 = "^7.1.1"
-openpyxl = "^3.1.5"
-pyright = "^1.1.384"
-pyside2 = "^5.15.2.1"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "loguru>=0.7.2,<0.8",
+    "numpy==1.26.4",
+    "openpyxl>=3.1.5,<4",
+    "pandas>=2.2.2,<3",
+    "pyqt6>=6.7.0,<7",
+    "pyside2>=5.15.2.1,<6",
+]
