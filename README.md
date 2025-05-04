@@ -60,3 +60,4 @@ sudo apt install qtwayland5
 
 #TODO
 - add gif to readme  
+- add system sep to path str
