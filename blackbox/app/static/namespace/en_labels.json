@@ -10,7 +10,7 @@
 
     "bar": {
         "file_menu": {
-            "menu_name": "&🗏 File",
+            "menu_name": "File",
             "upload": "Upload",
             "save": "Save"
         }

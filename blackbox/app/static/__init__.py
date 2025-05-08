@@ -32,7 +32,7 @@ def shortcut(key_: str) -> str:
 
 
 def label(key_: str) -> str:
-    LABELS: dict = __load('./namespace/ru_labels.json')
+    LABELS: dict = __load('./namespace/en_labels.json')
     return _get_key(key_, LABELS)
 
 
