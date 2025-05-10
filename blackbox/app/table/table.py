@@ -24,8 +24,8 @@ class _TableWidgetInnerLogic:
     It acts as a controller, separating the logical operations from the visual representation.
     """
 
-    def __init__(self, table_widget):
-        self.table_widget = table_widget
+    def __init__(self, table_widget: QTableWidget):
+        self.table_widget: QTableWidget = table_widget
 
         self.replace_dialog = ReplaceDialogBase(self.table_widget)
         self.replace_logic = ReplaceDialogLogic(self.replace_dialog, self)
@@ -142,30 +142,34 @@ class _TableWidgetInnerLogic:
             if self.table_widget.rowCount() > 0:
                 self.table_widget.removeRow(row)
                 logger.info(f"Removed row {row}, new row count: {self.table_widget.rowCount()}")
-
     def __setup_shortcuts(self):
         """
         Configures keyboard shortcuts for table operations.
+        You can set shortcuts in json file blackbox/app/static/namespace/shortcuts.json
+        Access values from this file using dot.notation
         """
-        find_cut: str = shortcut('table.find')
-        replace_cut: str = shortcut('table.replace')
-        remove_cut: str = shortcut('table.remove_row')
-        below_cut: str = shortcut('table.add_row_below')
-        above_cut: str = shortcut('table.add_row_above')
+        logger.debug("Setting up shortcuts")
 
         t = self.table_widget
-        self.add_row_above_shortcut = QShortcut(QKeySequence(above_cut), t)
-        self.add_row_below_shortcut = QShortcut(QKeySequence(below_cut), t)
-        self.remove_row_shortcut = QShortcut(QKeySequence(remove_cut), t)
-        self.replace_shortcut = QShortcut(QKeySequence(replace_cut), t)
-        self.find_shortcut = QShortcut(QKeySequence(find_cut), t)
 
-        logger.debug("Setting up shortcuts")
-        self.add_row_above_shortcut.activated.connect(self._add_row_above)
-        self.add_row_below_shortcut.activated.connect(self._add_row_below)
-        self.remove_row_shortcut.activated.connect(self._remove_row)
-        self.replace_shortcut.activated.connect(self.replace_dialog.show)
-        self.find_shortcut.activated.connect(self.finder_dialog.show)
+        # Mapping of shortcut keys to their corresponding methods
+        # use dot.notation here
+        shortcuts = {
+            'table.add_column_after': self._add_col_after,
+            'table.add_column_before': self._add_col_before,
+            'table.remove_column': self._remove_col,
+            'table.add_row_above': self._add_row_above,
+            'table.add_row_below': self._add_row_below,
+            'table.remove_row': self._remove_row,
+            'table.replace': self.replace_dialog.show,
+            'table.find': self.finder_dialog.show
+        }
+
+        # Loop through the mapping and register shortcuts
+        for key, method in shortcuts.items():
+            shortcut_key = shortcut(key)
+            shortcut_instance = QShortcut(QKeySequence(shortcut_key), t)
+            shortcut_instance.activated.connect(method)
 
     def _add_row_above(self):
         current_row = self.table_widget.currentRow()
@@ -182,10 +186,24 @@ class _TableWidgetInnerLogic:
         self.__remove_row(current_row)
         logger.debug(f"Shortcut activated: remove row {current_row}")
 
+    def _add_col_after(self):
+        current_col = self.table_widget.currentColumn()
+        self.__add_column(current_col, before=False)
+        logger.debug(f"Shortcut activated: add column after {current_col}")
+
+    def _add_col_before(self):
+        current_col = self.table_widget.currentColumn()
+        self.__add_column(current_col)
+        logger.debug(f"Shortcut activated: add column before {current_col}")
+
+    def _remove_col(self):
+        current_col = self.table_widget.currentColumn()
+        self.__remove_column(current_col)
+        logger.debug(f"Shortcut activated: Removing column {current_col}")
+
     def handle_data_loaded(self, df: pd.DataFrame):
         """
         Populates the table widget with data from a pandas DataFrame.
-
         Sets the row and column counts, headers, and item values based
         on the DataFrame's structure and content.
 
@@ -206,73 +224,60 @@ class _TableWidgetInnerLogic:
 
         logger.info("Data loaded into table from DataFrame")
 
-
     def show_context_menu(self, pos):
         """
         Displays the custom context menu for the table.
-
         The menu provides options to remove the current row/column or add new rows/columns
         above/below or before/after the current row/column.
 
         Args:
             pos (QPoint): The position where the context menu is requested.
         """
+        SEPARATOR_INDEX = 3
         logger.debug("Showing context menu")
         index = self.table_widget.indexAt(pos)
-        if index.isValid():
-            remove_label = label('table_context_menu.remove')
-            above_label = label('table_context_menu.add_above')
-            below_label = label('table_context_menu.add_below')
-            remove_col_label = label('table_context_menu.remove_column')
-            before_col_label = label('table_context_menu.add_column_before')
-            after_col_label = label('table_context_menu.add_column_after')
+        if not index.isValid():
+            return
 
-            menu = QMenu(self.table_widget)
+        menu = QMenu(self.table_widget)
 
-            # Row actions
-            remove_row = self.__action_connect(
-                parent=self.table_widget,
-                slot=lambda: self.__remove_row(index.row()),
-                label=remove_label
-            )
-            add_row_below = self.__action_connect(
-                parent=self.table_widget,
-                slot=lambda: self.__add_row(index.row(), above=False),
-                label=below_label
-            )
-            add_row_above = self.__action_connect(
-                parent=self.table_widget,
-                slot=lambda: self.__add_row(index.row(), above=True),
-                label=above_label
-            )
+        # Action configuration
+        # Use dot.notation for accessing labels from blackbox/app/static/namespace/en_labels.json
+        action_map = {
+            # Row Actions
+            'table_context_menu.remove': (lambda: self.__remove_row(index.row())),
+            'table_context_menu.add_above': (lambda: self.__add_row(index.row(), above=True)),
+            'table_context_menu.add_below': (lambda: self.__add_row(index.row(), above=False)),
 
-            # Column actions
-            remove_column = self.__action_connect(
-                parent=self.table_widget,
-                slot=lambda: self.__remove_column(index.column()),
-                label=remove_col_label
-            )
-            add_column_before = self.__action_connect(
-                parent=self.table_widget,
-                slot=lambda: self.__add_column(index.column(), before=True),
-                label=before_col_label
-            )
-            add_column_after = self.__action_connect(
-                parent=self.table_widget,
-                slot=lambda: self.__add_column(index.column(), before=False),
-                label=after_col_label
-            )
+            # Column Actions
+            'table_context_menu.remove_column': (lambda: self.__remove_column(index.column())),
+            'table_context_menu.add_column_before': (lambda: self.__add_column(index.column(), before=True)),
+            'table_context_menu.add_column_after': (lambda: self.__add_column(index.column(), before=False))
+        }
 
-            # Add actions to menu
-            menu.addAction(remove_row)
-            menu.addAction(add_row_above)
-            menu.addAction(add_row_below)
-            menu.addSeparator()
-            menu.addAction(remove_column)
-            menu.addAction(add_column_before)
-            menu.addAction(add_column_after)
-            menu.exec(self.table_widget.viewport().mapToGlobal(pos))
-            logger.info("Context menu displayed")
+    # Dynamically create actions and add to menu
+        for idx, action_key in enumerate(action_map.keys()):
+            if idx == SEPARATOR_INDEX:
+                menu.addSeparator()
+            menu.addAction(self.__create_action(action_key, action_map[action_key]))
+
+        menu.exec(self.table_widget.viewport().mapToGlobal(pos))
+        logger.info("Context menu displayed")
+
+    def __create_action(self, label_key, slot):
+        """
+        Creates a QAction connected to the specified slot.
+
+        Args:
+            label_key (str): The dot-separated key for the label in the JSON.
+            slot (callable): The function to call when the action is triggered.
+
+        Returns:
+            QAction: The created action.
+        """
+        label_text = label(label_key)
+        return self.__action_connect(parent=self.table_widget, slot=slot, label=label_text)
+
 
     def __add_column(self, col=None, before=True):
         """

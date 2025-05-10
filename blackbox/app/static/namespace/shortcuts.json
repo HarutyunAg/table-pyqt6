@@ -9,6 +9,11 @@
         "add_row_above" : "Ctrl+Up",
         "add_row_below": "Ctrl+Down",
         "remove_row": "Ctrl+Delete",
+
+        "add_column_after" : "Ctrl+Right",
+        "add_column_before": "Ctrl+Left",
+        "remove_column": "Ctrl+Shift+Delete",
+
         "replace": "Ctrl+R",
         "find": "Ctrl+F"
     }
