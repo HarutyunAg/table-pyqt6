@@ -16,9 +16,9 @@
         }
     },
     "table_context_menu": {
-        "add_above": "Add 🡱",
-        "add_below": "Add 🡳",
-        "remove": "Delete 🗑"
+        "add_above": "Add ↑",
+        "add_below": "Add ↓",
+        "remove": "Delete"
     },
     "replace_dialog": {
         "title": "Text Replacement",
@@ -26,15 +26,15 @@
         "new": "New Value",
         "change": "Replace",
         "change_all": "Replace All",
-        "arrow_down": "🡳",
-        "arrow_up": "🡱",
+        "arrow_down": "↓",
+        "arrow_up": "↑",
         "find": "Find"
     },
     "finder_dialog": {
         "title" : "Search text",
         "value": "¯\\_(ツ)_/¯",
-        "arrow_down": "🡳",
-        "arrow_up": "🡱",
+        "arrow_down": "↓",
+        "arrow_up": "↑",
         "find": "Find"
     }
 }

@@ -13,7 +13,17 @@ from blackbox.app.table.dialogs import (
 )
 
 
-class TableWidgetLogic:
+class _TableWidgetInnerLogic:
+    """
+    Provides the core logic and functionality for the TableWidget.
+
+    This class manages interactions, data manipulation, and UI elements
+    such as context menus, drag-and-drop, and find/replace dialogs for
+    a given QTableWidget instance.
+
+    It acts as a controller, separating the logical operations from the visual representation.
+    """
+
     def __init__(self, table_widget):
         self.table_widget = table_widget
 
@@ -24,9 +34,18 @@ class TableWidgetLogic:
         self.finder_logic = FindDialogLogic(self.finder_dialog, self)
 
         self.__setup_shortcuts()
-        logger.debug("Initialized TableWidgetLogic with table_widget")
+        logger.debug("Initialized _TableWidgetInnerLogic with table_widget")
 
-    def drop_event_logic(self, event):
+    def drop_event_logic(self, event) -> None:
+        """
+        Handles the logic for drag and drop events within the table.
+
+        Moves selected rows to the target drop location, maintaining
+        the order of the moved rows.
+
+        Args:
+            event (QDropEvent): The drop event object.
+        """
         logger.debug("Handling drop event")
         if event.source() == self.table_widget:
             mapping = dict()
@@ -69,6 +88,15 @@ class TableWidgetLogic:
             logger.info(f"Rows moved to target {target}")
 
     def show_context_menu(self, pos):
+        """
+        Displays the custom context menu for the table.
+
+        The menu provides options to remove the current row or add new rows
+        above or below the current row.
+
+        Args:
+            pos (QPoint): The position where the context menu is requested.
+        """
         logger.debug("Showing context menu")
         index = self.table_widget.indexAt(pos)
         if index.isValid():
@@ -103,12 +131,34 @@ class TableWidgetLogic:
             menu.exec(self.table_widget.viewport().mapToGlobal(pos))
             logger.info("Context menu displayed")
 
+
+    @staticmethod
     def __action_connect(parent, slot, label) -> QAction:
+        """
+        Creates and connects a QAction to a given slot.
+
+        Args:
+            parent (QWidget): The parent widget for the action.
+            slot (callable): The function to connect to the action's triggered signal.
+            label (str): The text label for the action.
+
+        Returns:
+            QAction: The created and connected QAction.
+        """
         action = QAction(label, parent)
         action.triggered.connect(slot)
         return action
 
     def __add_row(self, row=None, above=True):
+        """
+        Adds a new row to the table.
+
+        Args:
+            row (int, optional): The index of the row relative to which the new row will be added.
+                                 If None, the row is added at the end. Defaults to None.
+            above (bool, optional): If True, the new row is inserted above the specified row.
+                                   If False, it's inserted below. Defaults to True.
+        """
         if row is None:
             rowCount = self.table_widget.rowCount()
             self.table_widget.insertRow(rowCount)
@@ -122,6 +172,12 @@ class TableWidgetLogic:
                 logger.info(f"Added row below row {row}")
 
     def __remove_row(self, row=None):
+        """
+        Removes a row from the table.
+        Args:
+            row (int, optional): The index of the row to remove.
+            If None, the last row is removed. Defaults to None.
+        """
         if row is None:
             if self.table_widget.rowCount() > 0:
                 self.table_widget.removeRow(self.table_widget.rowCount() - 1)
@@ -132,7 +188,9 @@ class TableWidgetLogic:
                 logger.info(f"Removed row {row}, new row count: {self.table_widget.rowCount()}")
 
     def __setup_shortcuts(self):
-        
+        """
+        Configures keyboard shortcuts for table operations.
+        """
         find_cut: str = shortcut('table.find')
         replace_cut: str = shortcut('table.replace')
         remove_cut: str = shortcut('table.remove_row')
@@ -169,6 +227,15 @@ class TableWidgetLogic:
         logger.debug(f"Shortcut activated: remove row {current_row}")
 
     def handle_data_loaded(self, df: pd.DataFrame):
+        """
+        Populates the table widget with data from a pandas DataFrame.
+
+        Sets the row and column counts, headers, and item values based
+        on the DataFrame's structure and content.
+
+        Args:
+            df (pd.DataFrame): The DataFrame containing the data to display.
+        """
         logger.debug("Loading data into table")
         headers = df.columns.values.tolist()
 
@@ -185,6 +252,14 @@ class TableWidgetLogic:
 
 
 class TableWidget(QTableWidget):
+    """
+    A custom QTableWidget with enhanced functionalities such as drag-and-drop
+    row reordering, a context menu for row manipulation, and keyboard shortcuts
+    for common table operations.
+
+    This widget integrates the logic provided by the _TableWidgetInnerLogic
+    to handle these features.
+    """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -204,13 +279,32 @@ class TableWidget(QTableWidget):
         self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.customContextMenuRequested.connect(self.show_context_menu)
 
-        self.logic = TableWidgetLogic(self)
+        self.logic = _TableWidgetInnerLogic(self)
+
 
     def dropEvent(self, event):
+        """
+        Overrides the default dropEvent to use the custom drag-and-drop logic.
+
+        Args:
+            event (QDropEvent): The drop event object.
+        """
         self.logic.drop_event_logic(event)
 
     def show_context_menu(self, pos):
+        """
+        Overrides the default show_context_menu to use the custom context menu logic.
+
+        Args:
+            pos (QPoint): The position where the context menu is requested.
+        """
         self.logic.show_context_menu(pos)
 
     def handle_data_loaded(self, df: pd.DataFrame):
+        """
+        A convenience method to load data into the table using the internal logic.
+
+        Args:
+            df (pd.DataFrame): The DataFrame containing the data to display.
+        """
         self.logic.handle_data_loaded(df)
