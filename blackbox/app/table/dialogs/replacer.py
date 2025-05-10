@@ -1,7 +1,14 @@
-from PyQt6.QtWidgets import QVBoxLayout, QDialog, QLineEdit, QPushButton, QHBoxLayout, QWidget
+from PyQt6.QtWidgets import (
+    QDialog,
+    QHBoxLayout,
+    QLineEdit,
+    QPushButton,
+    QVBoxLayout,
+    QWidget,
+)
 
-from blackbox.app.table.dialogs.finder import FindDialogLogic
 from blackbox.app.static import label
+from blackbox.app.table.dialogs.finder import FindDialogLogic
 
 
 class ReplaceDialogBase(QDialog):

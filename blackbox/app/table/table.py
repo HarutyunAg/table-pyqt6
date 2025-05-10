@@ -1,17 +1,19 @@
 import pandas as pd
 from loguru import logger
+from PyQt6.QtCore import QPoint, Qt
+from PyQt6.QtGui import QAction, QKeySequence, QShortcut
+from PyQt6.QtWidgets import QAbstractItemView, QMenu, QTableWidget, QTableWidgetItem
 
-from blackbox.app.static import shortcut, label
-from blackbox.app.table.dialogs import ReplaceDialogLogic, ReplaceDialogBase, FindDialogLogic, FinderDialogBase
-
-from PyQt6.QtCore import Qt, QPoint
-from PyQt6.QtGui import QAction, QShortcut, QKeySequence
-from PyQt6.QtWidgets import (QTableWidget, QAbstractItemView,
-                             QTableWidgetItem, QMenu)
+from blackbox.app.static import label, shortcut
+from blackbox.app.table.dialogs import (
+    FindDialogLogic,
+    FinderDialogBase,
+    ReplaceDialogBase,
+    ReplaceDialogLogic,
+)
 
 
 class TableWidgetLogic:
-
     def __init__(self, table_widget):
         self.table_widget = table_widget
 
@@ -76,13 +78,23 @@ class TableWidgetLogic:
 
             menu = QMenu(self.table_widget)
 
-            remove = lambda: self.__remove_row(index.row())
-            above = lambda: self.__add_row(index.row(), above=True)
-            below = lambda: self.__add_row(index.row(), above=False)
-            
-            remove_row: QAction = self.__action_connect(self.table_widget, remove, remove_label)
-            add_row_below: QAction = self.__action_connect(self.table_widget, below, below_label)
-            add_row_above: QAction = self.__action_connect(self.table_widget, above, above_label)
+            remove_row: QAction = self.__action_connect(
+                self.table_widget,
+                lambda: self.__remove_row(index.row()),
+                remove_label
+                )
+
+            add_row_below: QAction = self.__action_connect(
+                self.table_widget,
+                lambda: self.__add_row(index.row(), above=False),
+                below_label
+                )
+
+            add_row_above: QAction = self.__action_connect(
+                self.table_widget,
+                lambda: self.__add_row(index.row(), above=True),
+                above_label
+                )
 
             menu.addAction(remove_row)
             menu.addAction(add_row_above)
@@ -95,7 +107,6 @@ class TableWidgetLogic:
         action = QAction(label, parent)
         action.triggered.connect(slot)
         return action
-
 
     def __add_row(self, row=None, above=True):
         if row is None:

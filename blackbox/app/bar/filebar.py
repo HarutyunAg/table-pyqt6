@@ -1,7 +1,8 @@
 import pandas as pd
-from blackbox.app.static import label, shortcut
 from PyQt6.QtGui import QAction, QKeySequence
-from PyQt6.QtWidgets import QMenuBar, QFileDialog
+from PyQt6.QtWidgets import QFileDialog, QMenuBar
+
+from blackbox.app.static import label, shortcut
 
 
 class FileMenuBar(QMenuBar):
@@ -17,7 +18,6 @@ class FileMenuBar(QMenuBar):
         save_label: str = label('bar.file_menu.save')
         upload_label: str = label('bar.file_menu.upload')
         file_menu_label: str = label('bar.file_menu.menu_name')
-        
 
         file_menu = self.addMenu(file_menu_label)
 
@@ -40,7 +40,7 @@ class FileMenuBar(QMenuBar):
 
     def __save(self):
         path, _ = QFileDialog.getSaveFileName(self.parent,
-                                              "Сохранить", "",
+                                              "Save", "",
                                               "Excel Files (*.xlsx *.xls);;All Files (*)")
         if not path:
             return 

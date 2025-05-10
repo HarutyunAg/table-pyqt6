@@ -1,9 +1,10 @@
-from blackbox.app.static import label
-
 import os
+
 import pandas as pd
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QFileDialog, QWidget
+
+from blackbox.app.static import label
 
 
 class ExcelLoader:
