@@ -87,50 +87,6 @@ class _TableWidgetInnerLogic:
             event.accept()
             logger.info(f"Rows moved to target {target}")
 
-    def show_context_menu(self, pos):
-        """
-        Displays the custom context menu for the table.
-
-        The menu provides options to remove the current row or add new rows
-        above or below the current row.
-
-        Args:
-            pos (QPoint): The position where the context menu is requested.
-        """
-        logger.debug("Showing context menu")
-        index = self.table_widget.indexAt(pos)
-        if index.isValid():
-            remove_label = label('table_context_menu.remove')
-            above_label = label('table_context_menu.add_above')
-            below_label = label('table_context_menu.add_below')
-
-            menu = QMenu(self.table_widget)
-
-            remove_row: QAction = self.__action_connect(
-                self.table_widget,
-                lambda: self.__remove_row(index.row()),
-                remove_label
-                )
-
-            add_row_below: QAction = self.__action_connect(
-                self.table_widget,
-                lambda: self.__add_row(index.row(), above=False),
-                below_label
-                )
-
-            add_row_above: QAction = self.__action_connect(
-                self.table_widget,
-                lambda: self.__add_row(index.row(), above=True),
-                above_label
-                )
-
-            menu.addAction(remove_row)
-            menu.addAction(add_row_above)
-            menu.addAction(add_row_below)
-
-            menu.exec(self.table_widget.viewport().mapToGlobal(pos))
-            logger.info("Context menu displayed")
-
 
     @staticmethod
     def __action_connect(parent, slot, label) -> QAction:
@@ -249,6 +205,110 @@ class _TableWidgetInnerLogic:
                 self.table_widget.setItem(i, j, item)
 
         logger.info("Data loaded into table from DataFrame")
+
+
+    def show_context_menu(self, pos):
+        """
+        Displays the custom context menu for the table.
+
+        The menu provides options to remove the current row/column or add new rows/columns
+        above/below or before/after the current row/column.
+
+        Args:
+            pos (QPoint): The position where the context menu is requested.
+        """
+        logger.debug("Showing context menu")
+        index = self.table_widget.indexAt(pos)
+        if index.isValid():
+            remove_label = label('table_context_menu.remove')
+            above_label = label('table_context_menu.add_above')
+            below_label = label('table_context_menu.add_below')
+            remove_col_label = label('table_context_menu.remove_column')
+            before_col_label = label('table_context_menu.add_column_before')
+            after_col_label = label('table_context_menu.add_column_after')
+
+            menu = QMenu(self.table_widget)
+
+            # Row actions
+            remove_row = self.__action_connect(
+                parent=self.table_widget,
+                slot=lambda: self.__remove_row(index.row()),
+                label=remove_label
+            )
+            add_row_below = self.__action_connect(
+                parent=self.table_widget,
+                slot=lambda: self.__add_row(index.row(), above=False),
+                label=below_label
+            )
+            add_row_above = self.__action_connect(
+                parent=self.table_widget,
+                slot=lambda: self.__add_row(index.row(), above=True),
+                label=above_label
+            )
+
+            # Column actions
+            remove_column = self.__action_connect(
+                parent=self.table_widget,
+                slot=lambda: self.__remove_column(index.column()),
+                label=remove_col_label
+            )
+            add_column_before = self.__action_connect(
+                parent=self.table_widget,
+                slot=lambda: self.__add_column(index.column(), before=True),
+                label=before_col_label
+            )
+            add_column_after = self.__action_connect(
+                parent=self.table_widget,
+                slot=lambda: self.__add_column(index.column(), before=False),
+                label=after_col_label
+            )
+
+            # Add actions to menu
+            menu.addAction(remove_row)
+            menu.addAction(add_row_above)
+            menu.addAction(add_row_below)
+            menu.addSeparator()
+            menu.addAction(remove_column)
+            menu.addAction(add_column_before)
+            menu.addAction(add_column_after)
+            menu.exec(self.table_widget.viewport().mapToGlobal(pos))
+            logger.info("Context menu displayed")
+
+    def __add_column(self, col=None, before=True):
+        """
+        Adds a new column to the table.
+
+        Args:
+            col (int, optional): The index of the column relative to which the new column will be added.
+                                If None, the column is added at the end. Defaults to None.
+            before (bool, optional): If True, the new column is inserted before the specified column.
+                                    If False, it's inserted after. Defaults to True.
+        """
+        if col is None:
+            col = self.table_widget.columnCount()
+        
+        insert_at = col if before else col + 1
+        self.table_widget.insertColumn(insert_at)
+
+        # Optional: Set header label for the new column
+        self.table_widget.setHorizontalHeaderItem(insert_at, QTableWidgetItem(f"Column {insert_at + 1}"))
+        logger.info(f"Added column at index {insert_at}")
+
+    def __remove_column(self, col=None):
+        """
+        Removes a column from the table.
+
+        Args:
+            col (int, optional): The index of the column to remove.
+                                If None, the last column is removed. Defaults to None.
+        """
+        if col is None:
+            col = self.table_widget.columnCount() - 1
+        
+        if col >= 0 and self.table_widget.columnCount() > 0:
+            self.table_widget.removeColumn(col)
+            logger.info(f"Removed column at index {col}")
+
 
 
 class TableWidget(QTableWidget):

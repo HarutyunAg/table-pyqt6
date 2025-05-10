@@ -16,9 +16,13 @@
         }
     },
     "table_context_menu": {
-        "add_above": "Add ↑",
-        "add_below": "Add ↓",
-        "remove": "Delete"
+        "add_above": "Add Row ↑",
+        "add_below": "Add Row ↓",
+        "remove": "Delete Row",
+
+        "add_column_before": "Add Column Before ←",
+        "add_column_after": "Add Column After →",
+        "remove_column": "Delete Column"
     },
     "replace_dialog": {
         "title": "Text Replacement",
