@@ -7,7 +7,7 @@ __all__ = ['action_connect', 'shortcut', 'label']
 
 def __get_path(fname):
     path = os.path.join(os.path.dirname(__file__), fname)
-    return path
+    return os.path.normpath(path)
 
 
 def __load(f: str) -> dict:
@@ -36,4 +36,4 @@ def label(key_: str) -> str:
     return _get_key(key_, LABELS)
 
 
-LOGO: str = __get_path('imgs/logo.png')
+LOGO: str = __get_path('./imgs/logo.png')

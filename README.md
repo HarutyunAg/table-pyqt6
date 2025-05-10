@@ -1,37 +1,37 @@
-# blackbox editable table for PyQT6
+# BlackBox Editable Table for PyQt6
+🚀 A ready-to-use, easy-to-integrate, fully editable table widget for your PyQt6 applications!
 
-Are you building a PyQT6 App and looking for a blackbox / ready to use / eazy integratable / full editable table? I know u r.  
+(づ◡﹏◡)づ Congrats! You've found the perfect solution for your PyQt6 table needs.
 
-*(づ◡﹏◡)づ Congrats! You have found this repo.*  
+# 🔍 Overview
+This repository provides a blackbox table widget with essential features for PyQt6 apps. It's not a standalone application—just a plug-and-play table designed for seamless integration into your projects.
 
-This is not standalone app. It's just a table with bunch of regular  features. 
+# ✨ Features
+✅ Edit cells – Modify values directly in the table.
+✅ Drag and drop rows – Rearrange rows effortlessly.
+✅ Find & Replace – Quickly locate or update values (Ctrl+F / Ctrl+R).
+✅ Save/Load tables – Persist data to disk and reload it later (Ctrl+S / Ctrl+O).
+✅ Row management – Add/remove rows with shortcuts (Ctrl+Up, Ctrl+Down, Ctrl+Delete).
 
-So speaking about features btw:
-- edit values in cells
-- drag and drop row
-- save table
-- upload table
-- find values in table
-- replace values in table
-
-## shortcuts
-You can change shortcuts in json file `blackbox/app/static/namespace/shortcuts.json`
+# ⌨️ Shortcuts
+All shortcuts are customizable via `blackbox/app/static/namespace/shortcuts.json`:
 
 ```json
 {
-    "bar": {
-        "file_menu": {
-            "upload": "Ctrl+O",
-            "save": "Ctrl+S"
-        }
-    },
-    "table" : {
-        "add_row_above" : "Ctrl+Up",
-        "add_row_below": "Ctrl+Down",
-        "remove_row": "Ctrl+Delete",
-        "replace": "Ctrl+R",
-        "find": "Ctrl+F"
+  "bar": {
+    "file_menu": {
+      "upload": "Ctrl+O",
+      "save": "Ctrl+S"
     }
+  },
+  "table": {
+    "add_row_above": "Ctrl+Up",
+    "add_row_below": "Ctrl+Down",
+    "remove_row": "Ctrl+Delete",
+    "replace": "Ctrl+R",
+    "find": "Ctrl+F"
+  }
+}
 ```
 
 ## project tree
@@ -57,7 +57,7 @@ blackbox/                # Main source directory
 ```
 
 
-### setup
+## 🛠️ Installation & Usage
 
 ```bash
 git clone https://github.com/HarutyunAg/blackbox-pyqt6-table.git
@@ -84,7 +84,3 @@ Solution:
 ```bash
 sudo apt install qtwayland5
 ```
-
-#TODO
-- add gif to readme  
-- add system sep to path str
