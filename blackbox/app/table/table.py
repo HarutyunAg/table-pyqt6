@@ -279,9 +279,10 @@ class _TableWidgetInnerLogic:
         return self.__action_connect(parent=self.table_widget, slot=slot, label=label_text)
 
 
+
     def __add_column(self, col=None, before=True):
         """
-        Adds a new column to the table.
+        Adds a new column to the table with a unique name.
 
         Args:
             col (int, optional): The index of the column relative to which the new column will be added.
@@ -291,13 +292,30 @@ class _TableWidgetInnerLogic:
         """
         if col is None:
             col = self.table_widget.columnCount()
-        
+
         insert_at = col if before else col + 1
         self.table_widget.insertColumn(insert_at)
 
-        # Optional: Set header label for the new column
-        self.table_widget.setHorizontalHeaderItem(insert_at, QTableWidgetItem(f"Column {insert_at + 1}"))
-        logger.info(f"Added column at index {insert_at}")
+        # Generate a unique column name
+        existing_headers = {
+            self.table_widget.horizontalHeaderItem(i).text()
+            for i in range(self.table_widget.columnCount())
+            if self.table_widget.horizontalHeaderItem(i) is not None
+            }
+
+        base_name = "Column"
+        counter = 1
+
+        # Find the first available name
+        while f"{base_name} {counter}" in existing_headers:
+            counter += 1
+
+        unique_name = f"{base_name} {counter}"
+
+        # Set the unique header label
+        self.table_widget.setHorizontalHeaderItem(insert_at, QTableWidgetItem(unique_name))
+        logger.info(f"Added column at index {insert_at} with label '{unique_name}'")
+
 
     def __remove_column(self, col=None):
         """

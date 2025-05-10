@@ -11,6 +11,7 @@
     "bar": {
         "file_menu": {
             "menu_name": "File",
+            "new_table": "New Table",
             "upload": "Upload",
             "save": "Save"
         }
