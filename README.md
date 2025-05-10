@@ -1,17 +1,20 @@
 # BlackBox Editable Table for PyQt6
-🚀 A ready-to-use, easy-to-integrate, fully editable table widget for your PyQt6 applications!
+Are you building a PyQT6 App and looking for a ready-to-use, easy-to-integrate, fully editable table widget for your PyQt6 applications?  
 
-(づ◡﹏◡)づ Congrats! You've found the perfect solution for your PyQt6 table needs.
+**(づ◡﹏◡)づ Congrats! You have found this repo.**  
+
 
 # 🔍 Overview
-This repository provides a blackbox table widget with essential features for PyQt6 apps. It's not a standalone application—just a plug-and-play table designed for seamless integration into your projects.
+This repository provides a blackbox table widget with essential features for PyQt6 apps.  
+
+It's not a standalone application—just a plug-and-play table designed for seamless integration into your projects.
 
 # ✨ Features
-✅ Edit cells – Modify values directly in the table.
-✅ Drag and drop rows – Rearrange rows effortlessly.
-✅ Find & Replace – Quickly locate or update values (Ctrl+F / Ctrl+R).
-✅ Save/Load tables – Persist data to disk and reload it later (Ctrl+S / Ctrl+O).
-✅ Row management – Add/remove rows with shortcuts (Ctrl+Up, Ctrl+Down, Ctrl+Delete).
+  - Edit cells – Modify values directly in the table.  
+  - Drag and drop rows – Rearrange rows effortlessly.  
+  - Find & Replace – Quickly locate or update values `Ctrl+F / Ctrl+R`.  
+  - Save/Load tables – Persist data to disk and reload it later `Ctrl+S / Ctrl+O`.  
+  - Row management – Add/remove rows with shortcuts `Ctrl+Up, Ctrl+Down, Ctrl+Delete`.  
 
 # ⌨️ Shortcuts
 All shortcuts are customizable via `blackbox/app/static/namespace/shortcuts.json`:
