@@ -2,7 +2,8 @@
     "bar": {
         "file_menu": {
             "upload": "Ctrl+O",
-            "save": "Ctrl+S"
+            "save": "Ctrl+S",
+            "new_table": "Ctrl+N"
         }
     },
     "table" : {

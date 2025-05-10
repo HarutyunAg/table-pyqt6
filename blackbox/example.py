@@ -1,10 +1,11 @@
 import sys
+
 from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
+
 from blackbox.app.bar import FileMenuBar
 from blackbox.app.static import LOGO, label
-from blackbox.app.table import TableWidget, LoaderFromMenuWidget
-from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QApplication
-
+from blackbox.app.table import LoaderFromMenuWidget, TableWidget
 
 
 class MainWindow(QMainWindow):
@@ -24,11 +25,11 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(central_widget)
         layout = QVBoxLayout(central_widget)
 
-        table_widget = TableWidget()
-        layout.addWidget(table_widget)
+        self.table_widget = TableWidget()
+        layout.addWidget(self.table_widget)
 
         self.loader_menu_widget = LoaderFromMenuWidget()
-        self.loader_menu_widget.data_loaded.connect(table_widget.handle_data_loaded)
+        self.loader_menu_widget.data_loaded.connect(self.table_widget.handle_data_loaded)
 
 
 def openApp():
