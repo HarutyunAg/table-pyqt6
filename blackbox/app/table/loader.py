@@ -14,7 +14,16 @@ class ExcelLoader:
 
     def read_excel(self, path) -> pd.DataFrame:
         try:
-            df = pd.read_excel(path, dtype=str)
+            # Read Excel with dtype=str, then replace 'nan' strings and actual NaN
+            df = pd.read_excel(
+                path,
+                dtype=str,
+                na_values=['', 'nan', 'NaN', 'N/A', 'NA'],  # Treat these as NaN
+                keep_default_na=True
+            )
+            
+            df = df.fillna('')
+            df = df.replace(['nan', 'NaN'], '')
             return df
         except Exception as e:
             print(f"Error reading Excel file: {e}")
@@ -44,7 +53,6 @@ class ExcelLoader:
 
 
 class LoaderWidgetBase(QWidget):
-
     data_loaded = pyqtSignal(pd.DataFrame)
 
     def __init__(self, parent=None):
@@ -60,7 +68,6 @@ class LoaderWidgetBase(QWidget):
 
 
 class LoaderFromMenuWidget(LoaderWidgetBase):
-
     def __init__(self, parent=None):
         super().__init__(parent)
 
