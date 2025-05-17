@@ -1,43 +1,49 @@
-# BlackBox Editable Table for PyQt6
+# Table for PyQt6
 Are you building a PyQT6 App and looking for a ready-to-use, easy-to-integrate, fully editable table widget for your PyQt6 applications?  
 
 **(づ◡﹏◡)づ Congrats! You have found this repo.**  
 
 
-# 🔍 Overview
+# Overview
 This repository provides a blackbox table widget with essential features for PyQt6 apps.  
 
 It's not a standalone application—just a plug-and-play table designed for seamless integration into your projects.
 
-# ✨ Features
+# Features
   - Edit cells – Modify values directly in the table.  
   - Drag and drop rows – Rearrange rows effortlessly.  
   - Find & Replace – Quickly locate or update values `Ctrl+F / Ctrl+R`.  
   - Save/Load tables – Persist data to disk and reload it later `Ctrl+S / Ctrl+O`.  
   - Row management – Add/remove rows with shortcuts `Ctrl+Up, Ctrl+Down, Ctrl+Delete`.  
 
-# ⌨️ Shortcuts
+# Shortcuts
 All shortcuts are customizable via `blackbox/app/static/namespace/shortcuts.json`:
 
 ```json
 {
-  "bar": {
-    "file_menu": {
-      "upload": "Ctrl+O",
-      "save": "Ctrl+S"
+    "bar": {
+        "file_menu": {
+            "upload": "Ctrl+O",
+            "save": "Ctrl+S",
+            "new_table": "Ctrl+N"
+        }
+    },
+    "table" : {
+        "add_row_above" : "Ctrl+Up",
+        "add_row_below": "Ctrl+Down",
+        "remove_row": "Ctrl+Delete",
+
+        "add_column_after" : "Ctrl+Right",
+        "add_column_before": "Ctrl+Left",
+        "remove_column": "Ctrl+Shift+Delete",
+
+        "replace": "Ctrl+R",
+        "find": "Ctrl+F"
     }
-  },
-  "table": {
-    "add_row_above": "Ctrl+Up",
-    "add_row_below": "Ctrl+Down",
-    "remove_row": "Ctrl+Delete",
-    "replace": "Ctrl+R",
-    "find": "Ctrl+F"
-  }
 }
 ```
 
-## project tree
+## Project tree
 
 ```bash
 blackbox/                # Main source directory
@@ -60,7 +66,7 @@ blackbox/                # Main source directory
 ```
 
 
-## 🛠️ Installation & Usage
+## Installation & Usage
 
 ```bash
 git clone https://github.com/HarutyunAg/blackbox-pyqt6-table.git
