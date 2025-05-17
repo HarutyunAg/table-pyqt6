@@ -1,20 +1,20 @@
-# Table for PyQt6
+# BlackBoxTable for PyQt6
 Are you building a PyQT6 App and looking for a ready-to-use, easy-to-integrate, fully editable table widget for your PyQt6 applications?  
 
 **(づ◡﹏◡)づ Congrats! You have found this repo.**  
 
+This repository provides a table widget with essential features for PyQt6 apps.  
 
-# Overview
-This repository provides a blackbox table widget with essential features for PyQt6 apps.  
+It's not a standalone application—just a plug-and-play table designed for integration into your projects.
 
-It's not a standalone application—just a plug-and-play table designed for seamless integration into your projects.
+You can see example of usage this table widget in your QMainWindow in \blackbox\example.py
 
 # Features
-  - Edit cells – Modify values directly in the table.  
-  - Drag and drop rows – Rearrange rows effortlessly.  
-  - Find & Replace – Quickly locate or update values `Ctrl+F / Ctrl+R`.  
-  - Save/Load tables – Persist data to disk and reload it later `Ctrl+S / Ctrl+O`.  
-  - Row management – Add/remove rows with shortcuts `Ctrl+Up, Ctrl+Down, Ctrl+Delete`.  
+  - Edit cells  
+  - Drag and drop rows 
+  - Find & Replace  
+  - Save/Load tables   
+  - Row / Column management  
 
 # Shortcuts
 All shortcuts are customizable via `blackbox/app/static/namespace/shortcuts.json`:
@@ -78,11 +78,10 @@ uv sync
 uv run main.py
 ```
 
-You can see example of usage this table widget in your *QMainWindow* in \blackbox\example.py
+## Linux Wayland Support
 
------
+When running on Linux, you might encounter:
 
-When running a PyQt6/PySide2 application on Linux, you may encounter:
 ```
     Failed to create wl_display (No such file or directory)  
     qt.qpa.plugin: Could not load the Qt platform plugin "xcb" or "wayland"  
