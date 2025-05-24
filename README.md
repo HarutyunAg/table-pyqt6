@@ -9,14 +9,21 @@ It's not a standalone application—just a plug-and-play table designed for inte
 
 You can see example of usage this table widget in your QMainWindow in \blackbox\example.py
 
-# Features
-  - Edit cells  
-  - Drag and drop rows 
-  - Find & Replace  
-  - Save/Load tables   
-  - Row / Column management  
+#### Features
 
-# Shortcuts
+Save/Load/Create tables  
+  ![Create table](blackbox/app/static/imgs/readme-new-table.gif)
+  ![Load table](blackbox/app/static/imgs/readme-load-table.gif)
+
+Drag and drop rows  
+  ![Drag and Drop Rows](blackbox/app/static/imgs/readme-drag-n-drop-rows.gif)
+
+Row / Column management  
+  ![Row / Column management](blackbox/app/static/imgs/readme-create-rows-n-columns.gif)
+
+  - Find & Replace  
+
+#### Shortcut support
 All shortcuts are customizable via `blackbox/app/static/namespace/shortcuts.json`:
 
 ```json
