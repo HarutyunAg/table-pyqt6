@@ -1,4 +1,4 @@
-# BlackBoxTable for PyQt6
+# Table for PyQt6
 Are you building a PyQT6 App and looking for a ready-to-use, easy-to-integrate, fully editable table widget for your PyQt6 applications?  
 
 **(づ◡﹏◡)づ Congrats! You have found this repo.**  
@@ -76,12 +76,6 @@ blackbox/                # Main source directory
 ## Installation & Usage
 
 ```bash
-git clone https://github.com/HarutyunAg/blackbox-pyqt6-table.git
-
-cd blackbox-pyqt6-table
-
-uv sync
-
 uv run main.py
 ```
 
